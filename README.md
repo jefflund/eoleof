@@ -1,4 +1,4 @@
-eoleof
+EOLEOF
 ======
 Vim plugin for managing newlines at the end of a file. Normally, you want your
 text files to end with a newline. This is because posix defines a line as
