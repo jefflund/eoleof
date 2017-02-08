@@ -1,6 +1,21 @@
 eoleof
 ======
-Vim plugin for managing newlines at the end of a file.
+Vim plugin for managing newlines at the end of a file. Normally, you want your
+text files to end with a newline. This is because posix defines a line as
+
+A sequence of zero or more non-<newline> characters plus a terminating <newline> character.
+
+Consequently, if your file doesn't end with newline, it ends with something
+other than a line! Normally, the only side effect is wonky output from things
+like `cat`, but some compilers respect the posix standard and so it is pretty
+much always a good idea to end files with a newline. This is why Vim defaults
+to this behavior.
+
+However, sometimes this just isn't what you want. For example, if one file
+serves as a template which will get embedded into another file, that trailing
+newline may be problematic! This plugin will help you keep things straight in
+the incredibly rare times when you need the default behavior around end of file
+newlines changed.
 
 Statusline
 ----------
@@ -28,3 +43,16 @@ would add the following to `ftplugin/html.vim`
 
     setlocal noeol
     setnofixeol
+
+Removing newline from end of file
+---------------------------------
+Currently this plugin has no way to remove the newline from the end of a file
+(but it eventually will). However, an easy way to do this is with the
+following:
+
+  :!truncate --size=-1 %
+
+This essentially just removes the final byte from the file. Note that this
+final byte is removed whether or not it is a newline or not! Vim will ask you
+to reload the file. Beware that without options to preserve the missing line,
+Vim will add it back in (as this is usually the behavior you want).
