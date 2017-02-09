@@ -29,30 +29,22 @@ present.
 
 Preserve missing newline at end of file
 ---------------------------------------
-Currently this plugin doesn't offer anything to help you here (but it
-eventually will). However, you can easily fix this by adding the following to
-your vimrc:
+Currently this plugin doesn't offer anything to help you here. However, you can
+easily fix this by adding the following to your vimrc:
 
-    set noeol
     set nofixeol
 
-These options will prevent vim from adding the trailing newline on saving.
-Normally you want this newline though, so you can also opt to only put it in
-certain filetypes. For example, if I only wanted this behavior in html files, I
-would add the following to `ftplugin/html.vim`
+These options will prevent vim from adding the trailing newline on saving if it
+is missing.  Normally you want this newline though, so you can also opt to only
+put it in certain filetypes. For example, if I only wanted this behavior in
+html files, I would add the following to `ftplugin/html.vim`
 
-    setlocal noeol
-    setnofixeol
+    setlocal nofixeol
 
-Removing newline from end of file
+Adding/Removing newline from end of file
 ---------------------------------
-Currently this plugin has no way to remove the newline from the end of a file
-(but it eventually will). However, an easy way to do this is with the
-following:
-
-  :!truncate --size=-1 %
-
-This essentially just removes the final byte from the file. Note that this
-final byte is removed whether or not it is a newline or not! Vim will ask you
-to reload the file. Beware that without options to preserve the missing line,
-Vim will add it back in (as this is usually the behavior you want).
+EOLEOF provides three commands to help you manage the newline at the end of
+files. `EOLEOFAdd` will add in a trailing newline if it is not present.
+`EOLEOFRemove` will remove the newline if it is present. Finally,
+`EOLEOFToggle` will toggle the newline. All of these functions will give a
+warning indicating that the file changed so that you know what is going on.
